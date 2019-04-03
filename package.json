@@ -5,7 +5,13 @@
 	"main": "index.js",
 	"scripts": {
 		"server": "nodemon",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"initdb": "knex init",
+		"tableUsers": "knex migrate:make usersTable",
+		"migrate": "knex migrate:latest",
+		"rollback": "knex migrate:rollback",
+		"seedUsers": "knex seed:make 01-users",
+		"runseedUsers": "knex seed:run 01-users"
 	},
 	"repository": {
 		"type": "git",
