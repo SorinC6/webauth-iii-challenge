@@ -22,7 +22,8 @@ router.post('/api/register', (req, res) => {
 function makeTokenFromUser(user) {
 	const payload = {
 		subject: user.id,
-		username: user.username
+		username: user.username,
+		departament: user.departament
 		//roles: [ 'pm' ]
 	};
 	const secret = process.env.SECRET || 'secret text - came from .env';
