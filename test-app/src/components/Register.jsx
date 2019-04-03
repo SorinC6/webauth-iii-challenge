@@ -2,19 +2,21 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 class Register extends Component {
 	state = {
 		username: '',
-		password: ''
+		password: '',
+		departament: ''
 	};
 
 	onRegister = (e) => {
 		e.preventDefault();
 		const userData = {
 			username: this.state.username,
-			password: this.state.password
+			password: this.state.password,
+			departament: this.state.departament
 		};
 		axios
 			.post('http://localhost:4000/api/register', userData)
@@ -27,17 +29,17 @@ class Register extends Component {
 			});
 	};
 
-	onUserChange = (e) => {
+	onInputChange = (e) => {
 		this.setState({
-			username: e.target.value
+			[e.target.name]: e.target.value
 		});
 	};
 
-	onPasswordChange = (e) => {
-		this.setState({
-			password: e.target.value
-		});
-	};
+	// onPasswordChange = (e) => {
+	// 	this.setState({
+	// 		password: e.target.value
+	// 	});
+	// };
 
 	render() {
 		return (
@@ -46,15 +48,21 @@ class Register extends Component {
 				<Form onSubmit={this.onRegister}>
 					<input
 						placeholder="username"
-						onChange={this.onUserChange}
+						onChange={this.onInputChange}
 						value={this.state.username}
 						name="username"
 					/>
 					<input
 						placeholder="password"
-						onChange={this.onPasswordChange}
+						onChange={this.onInputChange}
 						value={this.state.password}
 						name="password"
+					/>
+					<input
+						placeholder="departament"
+						onChange={this.onInputChange}
+						value={this.state.departament}
+						name="departament"
 					/>
 					<button type="submit">Register</button>
 				</Form>
