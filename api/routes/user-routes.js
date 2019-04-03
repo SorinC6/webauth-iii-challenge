@@ -5,7 +5,7 @@ const restricted = require('../../auth/restricted-route');
 
 const db = require('../../database/dbHelpers/user-model');
 
-router.get('/api/users', restricted, (req, res) => {
+router.get('/api/users',restricted, (req, res) => {
 	db
 		.getAllUsers()
 		.then((users) => {
