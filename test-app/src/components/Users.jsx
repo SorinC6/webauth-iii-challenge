@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-//axios.defaults.withCredentials = true;
+import axiosWithAuth from '../axios/axios';
+import User from './User';
 
 class Users extends Component {
 	state = {
@@ -9,7 +10,7 @@ class Users extends Component {
 	};
 
 	componentDidMount() {
-		axios
+		axiosWithAuth()
 			.get('http://localhost:4000/api/users')
 			.then((users) => {
 				console.log(users.data);
@@ -25,6 +26,7 @@ class Users extends Component {
 
 	onLogout = () => {
 		localStorage.clear();
+		this.props.history.push('/login');
 	};
 
 	render() {
@@ -32,7 +34,7 @@ class Users extends Component {
 			<div>
 				<h2>List of Users</h2>
 				<button onClick={this.onLogout}>Logout</button>
-				{this.state.users.map((user) => <p key={user.id}>{user.username}</p>)}
+				{this.state.users.map((user) => <User key={user.id} username={user.username} departament={user.departament}/>)}
 			</div>
 		);
 	}

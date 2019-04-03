@@ -25,12 +25,12 @@ function makeTokenFromUser(user) {
 		username: user.username
 		//roles: [ 'pm' ]
 	};
-
+	const secret = process.env.SECRET || 'secret text - came from .env';
 	const options = {
 		expiresIn: '20h'
 	};
 
-	const token = jwt.sign(payload, 'secret text - came from .env', options);
+	const token = jwt.sign(payload, secret, options);
 
 	return token;
 }
