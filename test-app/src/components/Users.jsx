@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import axiosWithAuth from '../axios/axios';
 import User from './User';
@@ -11,7 +11,7 @@ class Users extends Component {
 
 	componentDidMount() {
 		axiosWithAuth()
-			.get('http://localhost:4000/api/users')
+			.get('http://localhost:4000/api/users/departament')
 			.then((users) => {
 				console.log(users.data);
 				this.setState({
@@ -34,7 +34,9 @@ class Users extends Component {
 			<div>
 				<h2>List of Users</h2>
 				<button onClick={this.onLogout}>Logout</button>
-				{this.state.users.map((user) => <User key={user.id} username={user.username} departament={user.departament}/>)}
+				{this.state.users.map((user) => (
+					<User key={user.id} username={user.username} departament={user.departament} />
+				))}
 			</div>
 		);
 	}

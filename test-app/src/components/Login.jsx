@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
-//axios.defaults.withCredentials = true;
 
 class Login extends Component {
 	state = {

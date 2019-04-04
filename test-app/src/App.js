@@ -7,7 +7,7 @@ import Users from './components/Users';
 
 class App extends Component {
 	render() {
-		const loggedIn = localStorage.getItem('token');
+		//const loggedIn = localStorage.getItem('token');
 		return (
 			<div className="App">
 				<h2>Webauth with JWT Test app</h2>

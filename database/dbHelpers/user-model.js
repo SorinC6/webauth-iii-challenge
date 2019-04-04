@@ -18,6 +18,10 @@ function findBy(filter) {
 	return db('users').where(filter);
 }
 
+function findUserByDepartament(departament) {
+	return db('users').where({ departament });
+}
+
 function findById(id) {
 	return db('users').where({ id }).first();
 }
@@ -25,5 +29,6 @@ function findById(id) {
 module.exports = {
 	getAllUsers,
 	addUser,
-	findBy
+	findBy,
+	findUserByDepartament
 };
