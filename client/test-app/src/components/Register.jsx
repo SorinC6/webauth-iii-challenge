@@ -1,78 +1,62 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 //axios.defaults.withCredentials = true;
 
-class Register extends Component {
-	state = {
-		username: '',
-		password: '',
-		departament: ''
-	};
+const Register = (props) => {
+	const [ username, setUsername ] = useState('');
+	const [ password, setPassword ] = useState('');
+	const [ departament, setDepartament ] = useState('');
 
-	onRegister = (e) => {
+	const onRegister = (e) => {
 		e.preventDefault();
 		const userData = {
-			username: this.state.username,
-			password: this.state.password,
-			departament: this.state.departament
+			username,
+			password,
+			departament
 		};
 		axios
 			.post('http://localhost:4000/api/register', userData)
 			.then((res) => {
 				console.log(res.data);
-				this.props.history.push('/login');
+				props.history.push('/login');
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	};
 
-	onInputChange = (e) => {
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	};
-
-	// onPasswordChange = (e) => {
-	// 	this.setState({
-	// 		password: e.target.value
-	// 	});
-	// };
-
-	render() {
-		return (
-			<div>
-				<h1 style={{ textAlign: 'center' }}>REGISTER</h1>
-				<Form onSubmit={this.onRegister}>
-					<input
-						placeholder="username"
-						onChange={this.onInputChange}
-						value={this.state.username}
-						name="username"
-					/>
-					<input
-						placeholder="password"
-						onChange={this.onInputChange}
-						value={this.state.password}
-						name="password"
-					/>
-					<input
-						placeholder="departament"
-						onChange={this.onInputChange}
-						value={this.state.departament}
-						name="departament"
-					/>
-					<button type="submit">Register</button>
-				</Form>
-				<p style={{ textAlign: 'center' }}>
-					<Link to="/login">Already have a account?</Link>
-				</p>
-			</div>
-		);
-	}
-}
+	return (
+		<div>
+			<h1 style={{ textAlign: 'center' }}>REGISTER</h1>
+			<Form onSubmit={onRegister}>
+				<input
+					placeholder="username"
+					onChange={(e) => setUsername(e.target.value)}
+					value={username}
+					name="username"
+				/>
+				<input
+					placeholder="password"
+					onChange={(e) => setPassword(e.target.value)}
+					value={password}
+					name="password"
+				/>
+				<input
+					placeholder="departament"
+					onChange={(e) => setDepartament(e.target.value)}
+					value={departament}
+					name="departament"
+				/>
+				<button type="submit">Register</button>
+			</Form>
+			<p style={{ textAlign: 'center' }}>
+				<Link to="/login">Already have a account?</Link>
+			</p>
+		</div>
+	);
+};
 
 export default withRouter(Register);
 
