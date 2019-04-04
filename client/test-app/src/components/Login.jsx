@@ -1,26 +1,24 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 
-class Login extends Component {
-	state = {
-		username: '',
-		password: ''
-	};
+const Login = (props) => {
+	const [ username, setUsername ] = useState('');
+	const [ password, setPassword ] = useState('');
 
-	onLogin = (e) => {
+	const onLogin = (e) => {
 		e.preventDefault();
 		const userData = {
-			username: this.state.username,
-			password: this.state.password
+			username: username,
+			password: password
 		};
 		axios
 			.post('http://localhost:4000/api/login', userData)
 			.then((res) => {
 				console.log(res.data);
 				localStorage.setItem('token', res.data.token);
-				this.props.history.push('/users');
+				props.history.push('/users');
 				//localStorage.setItem('token', res.data.token);
 			})
 			.catch((err) => {
@@ -28,45 +26,37 @@ class Login extends Component {
 			});
 	};
 
-	onUserChange = (e) => {
-		this.setState({
-			username: e.target.value
-		});
-	};
+	return (
+		<div>
+			<h1 style={{ textAlign: 'center' }}>LOGIN</h1>
 
-	onPasswordChange = (e) => {
-		this.setState({
-			password: e.target.value
-		});
-	};
-
-	render() {
-		return (
-			<div>
-				<h1 style={{ textAlign: 'center' }}>LOGIN</h1>
-
-				<Form onSubmit={this.onLogin}>
-					<input
-						placeholder="username"
-						onChange={this.onUserChange}
-						value={this.state.username}
-						name="username"
-					/>
-					<input
-						placeholder="password"
-						onChange={this.onPasswordChange}
-						value={this.state.password}
-						name="password"
-					/>
-					<button type="submit">Login</button>
-				</Form>
-				<p style={{ textAlign: 'center' }}>
-					<Link to="/register">Don't have a account?</Link>
-				</p>
-			</div>
-		);
-	}
-}
+			<Form onSubmit={onLogin}>
+				<input
+					placeholder="username"
+					onChange={(e) => {
+						e.preventDefault();
+						setUsername(e.target.value);
+					}}
+					value={username}
+					name="username"
+				/>
+				<input
+					placeholder="password"
+					onChange={(e) => {
+						e.preventDefault();
+						setPassword(e.target.value);
+					}}
+					value={password}
+					name="password"
+				/>
+				<button type="submit">Login</button>
+			</Form>
+			<p style={{ textAlign: 'center' }}>
+				<Link to="/register">Don't have a account?</Link>
+			</p>
+		</div>
+	);
+};
 
 export default withRouter(Login);
 
