@@ -16,13 +16,13 @@ const Login = (props) => {
 		axios
 			.post('http://localhost:4000/api/login', userData)
 			.then((res) => {
-				console.log(res.data);
+				//console.log(res.data);
 				localStorage.setItem('token', res.data.token);
 				props.history.push('/users');
 				//localStorage.setItem('token', res.data.token);
 			})
 			.catch((err) => {
-				console.log(err);
+				//console.log(err);
 			});
 	};
 

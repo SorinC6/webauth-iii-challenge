@@ -19,11 +19,11 @@ const Register = (props) => {
 		axios
 			.post('http://localhost:4000/api/register', userData)
 			.then((res) => {
-				console.log(res.data);
+				//console.log(res.data);
 				props.history.push('/login');
 			})
 			.catch((err) => {
-				console.log(err);
+				//console.log(err);
 			});
 	};
 
